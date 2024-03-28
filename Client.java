@@ -27,13 +27,11 @@ public class Client {
         // di input/output.
         try (Socket socket = new Socket(serverIp, port); // Crea un socket per connettersi al server.
                 Scanner userInput = new Scanner(System.in); // Scanner per leggere l'input dell'utente da console.
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) { // PrintWriter per inviare messaggi
-                                                                                     // al server, con auto-flush
-                                                                                     // attivato.
-
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) { // PrintWriter per inviare
+                                                                                     // messaggial server, con
+                                                                                     // auto-flush attivato.
             // Messaggio che indica la connessione riuscita al server.
             System.out.println("Connected to server. Start typing messages (type 'exit' to quit).");
-
             // Creazione e avvio di un nuovo thread per ascoltare i messaggi dal server.
             Thread serverListener = new Thread(() -> {
                 try (Scanner in = new Scanner(socket.getInputStream())) { // Scanner per leggere i messaggi in entrata
@@ -46,6 +44,8 @@ public class Client {
                 }
             });
             serverListener.start(); // Avvia il thread che ascolta i messaggi dal server.
+            out.println(username + " è entrato nella chat");// Printo con out username è entrato nella chat quando un
+                                                            // nuovo utente "logga"
 
             // Ciclo principale per l'invio di messaggi al server.
             while (true) {
